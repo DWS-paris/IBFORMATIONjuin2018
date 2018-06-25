@@ -1,6 +1,23 @@
 <!-- Afficher la collection de données -->
 <ul>
     <% for( let item of todoes ) { %>
-        <li><%= item.content %></li>
+        <li><%= item.content %> <button item-id="<%= item.id %>" class="deleteButton" >X</button></li>
     <% } %>
 </ul>
+
+<script>
+
+    let btnCollection = document.getElementsByClassName('deleteButton');
+
+    for( let btn of btnCollection ){
+        btn.addEventListener('click', () => {
+            // Supprimer la todo
+            fetch(`http://localhost:8989/api/post/${btn.getAttribute('item-id')}`, {
+                method: "DELETE",
+            })
+            .then( window.location.href = '/' )
+            .catch( err => console.error(err) ) 
+        })
+    }
+
+</script>

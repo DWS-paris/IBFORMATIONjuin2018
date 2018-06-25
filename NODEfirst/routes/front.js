@@ -16,6 +16,10 @@ router.get( `/`, ( req, res ) => {
     .catch( err => console.error(err) )    
 });
 
+router.get( `/add`, ( req, res ) => {
+    res.render(`add-todo`, { title: `Add new todo` } );  
+});
+
 /*
 Exporter le module des routes
 */
