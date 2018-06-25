@@ -1,0 +1,29 @@
+{
+  "todoes": [
+    {
+      "id": 0,
+      "content": "Créer un serveur NodeJS",
+      "isDone": false
+    },
+    {
+      "id": 1,
+      "content": "Ajouter la route Front",
+      "isDone": false
+    },
+    {
+      "id": 2,
+      "content": "Configurer EJS",
+      "isDone": false
+    },
+    {
+      "content": "TEST",
+      "isDone": false,
+      "id": 3
+    },
+    {
+      "content": "TEST",
+      "isDone": false,
+      "id": 4
+    }
+  ]
+}
