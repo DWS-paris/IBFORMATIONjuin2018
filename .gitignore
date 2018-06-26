@@ -1,2 +1,2 @@
-NODEfirst/node_modules
-NODEfirst/.env
+*/node_modules
+*/.env

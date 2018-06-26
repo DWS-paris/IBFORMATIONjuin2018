@@ -1,0 +1,14 @@
+{
+  "name": "es6intro",
+  "version": "1.0.0",
+  "description": "Support de cours ES6 IBformation Lille 2018",
+  "scripts": {
+    "build": "babel --no-babelrc typings -w -d dist --presets=env"
+  },
+  "author": "Julien Noyer",
+  "license": "WTFPL",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0"
+  }
+}
