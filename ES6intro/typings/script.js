@@ -16,8 +16,8 @@ Le templating ES6 : les backquotes ``
 - éviter les erreurs avec les ' et les "
 */
 myTitle.innerHTML = `
-    Bonjour ${ firstName }, comment ça ? 
-    <i>Vous avez ${ 2018 - birthYear } ans.</i>
+    Bonjour ${ firstName}, comment ça ? 
+    <i>Vous avez ${ 2018 - birthYear} ans.</i>
 `;
 
 
@@ -28,30 +28,29 @@ Les fonctions fléchées
 - Pour un paramètre sans valeur par defaut = pas de parenthèses
 */
 const twice = (paramNumber = 5) => paramNumber * 2;
-console.log( twice(12) );
-console.log( twice() );
+console.log(twice(12));
+console.log(twice());
 
 /*
 Rest parameter dans les fonctions
 */
-const restFunction = ( userName, ...skills ) => {
+const restFunction = (userName, ...skills) => {
     console.log(`User name: ${userName}`);
     console.log(`User skills:`)
-    
+
     // Le paramètre du reste place les paramètres dans un tableau
-    for( let item of skills ){ console.log(item) }
+    for (let item of skills) { console.log(item) }
 };
 
 restFunction(`Julien Noyer`, `Javascript`, `ES6`, `PAO`);
 restFunction(`Paul Bismuth`, `Politique`);
 
-
 /*
 Spread operator pour les tableaux
 */
-let userHardSkills = [ `Javascript`, `ES6`, `PAO` ];
-let userSoftSkills = [ `Cuisine`, `Humour` ];
+let userHardSkills = [`Javascript`, `ES6`, `PAO`];
+let userSoftSkills = [`Cuisine`, `Humour`];
 
-let allUserSkills = [ ...userHardSkills, ...userSoftSkills ];
+let allUserSkills = [...userHardSkills, ...userSoftSkills];
 
 console.log(allUserSkills)

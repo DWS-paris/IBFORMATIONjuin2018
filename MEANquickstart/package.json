@@ -1,0 +1,28 @@
+{
+  "name": "meanquickstart",
+  "version": "1.0.0",
+  "description": "Projet de base MEAN stack",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "keywords": [
+    "MongoDB",
+    "ExpressJS",
+    "Angular",
+    "NodeJS"
+  ],
+  "author": "Julien Noyer",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "dotenv": "^6.0.0",
+    "ejs": "^2.6.1",
+    "express": "^4.16.3",
+    "mongoose": "^5.1.6",
+    "nodemon": "^1.17.5",
+    "path": "^0.12.7",
+    "winston": "^2.4.2",
+    "winston-loggly-bulk": "^2.0.2"
+  }
+}
