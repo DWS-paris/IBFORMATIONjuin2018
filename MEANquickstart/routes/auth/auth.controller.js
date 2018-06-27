@@ -46,10 +46,37 @@ Ecrire une fonction pour inscrire un utilisateur
                     .catch( error => {
                         return reject(error);
                     })
+                }
+            })
+        });
+    };
+//
 
 
+/*
+Ecrire une fonction pour connecter un utilisateur
+*/
+    const logUser = (body) => {
+        // Intégrer le système de promesse
+        return new Promise( (resolve, reject) => {
+            // Réchercher l'email de l'utilisateur
+            UserModel.findOne( { email: body.email }, (error, user) => {
+                if(error){ // Problème de connexion
+                    return reject(error);
 
-                    
+                } else if(!user){ // Email introuvable
+                    return reject(`Email unknow`);
+
+                } else{
+                    // Comparer les mots de passe ( client <=> bdd )
+                    const validPassword = bcrypt.compareSync( body.password, user.password );
+
+                    if(!validPassword){
+                        return reject(`Bad password`);
+
+                    } else{
+                        return resolve( { data: user, token: user.generateJwt() } )
+                    }
                 }
             })
         });
@@ -60,6 +87,7 @@ Ecrire une fonction pour inscrire un utilisateur
 Exporter le fonctions du contrôleur
 */
     module.exports = {
-        registerUser
+        registerUser,
+        logUser
     }
 //

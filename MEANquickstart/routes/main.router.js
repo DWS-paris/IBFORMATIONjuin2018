@@ -2,6 +2,8 @@
 Imports et configuration
 */
     const Router = require('express');
+    const passport = require('passport');
+    
     const AuthRouterClass = require('./auth/auth.routes');
     const UserRouterClass = require('./user/user.routes');
     const TodoRouterClass = require('./todo/todo.routes');
@@ -9,15 +11,22 @@ Imports et configuration
 //
 
 /*
+Configurer la stratégie passport
+*/
+    const { setAuthentication } = require('../services/authentication');
+    setAuthentication(passport);
+//
+
+/*
 Création des routers
 */
-    const apiRouter = Router();
+    const apiRouter = Router({ mergeParams: true });
     const frontRouter = Router();
     
-    const authRouter = new AuthRouterClass();
-    const userRouter = new UserRouterClass();
-    const todoRouter = new TodoRouterClass();
-    const publicRouter = new PublicRouterClass();
+    const authRouter = new AuthRouterClass( { passport } );
+    const userRouter = new UserRouterClass( { passport } );
+    const todoRouter = new TodoRouterClass( { passport } );
+    const publicRouter = new PublicRouterClass( { passport } );
 //
 
 /*
