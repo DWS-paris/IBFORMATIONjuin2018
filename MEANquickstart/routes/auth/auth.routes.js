@@ -1,10 +1,11 @@
 /*
-Imports et configuration
+Imports
 */
     const Router = require('express');
     const authRouter = Router();
     const checkFields = require('../../services/request.checker');
     const { sendFieldsError, sendApiSuccessResponse } = require('../../services/server.response');
+    const { registerUser } = require('./auth.controller');
 //
 
 
@@ -27,15 +28,20 @@ Création d'une class pour gérer les routes
                 // TODO: check body data
 
                 // Vérification de la présence des bons champs dans le body
-                const { miss, extra, ok } = checkFields([ `firstName` ], req.body)
+                const { miss, extra, ok } = checkFields([ `firstName`, `lastName`, `email`, `password`], req.body)
                 
                 // Vérifier la requête
                 if(!ok){ sendFieldsError( res, `Bad fields provided`, miss, extra ) }
                 else{
-                    sendApiSuccessResponse( res, `User registered`, [`someData`] )
-                }
+                    registerUser(req.body)
+                    .then( data => {
+                        sendApiSuccessResponse( res, `User registered`, data)
+                    })
+                    .catch( error => {
+                        sendApiSuccessResponse( res, `User not registered`, error)
+                    });
+                };
             });
-
         }
 
         // Initialiser le router
