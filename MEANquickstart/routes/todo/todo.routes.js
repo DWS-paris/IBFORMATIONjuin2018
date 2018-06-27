@@ -3,6 +3,7 @@ const express = require('express');
 const todoRouter = express.Router({ mergeParams: true });
 const { sendBodyError, sendFieldsError, sendApiSuccessResponse, sendApiErrorResponse } = require('../../services/server.response');
 const { checkFields } = require('../../services/request.checker');
+const { saveNewTodo } = require('./todo.controller');
 
 /* Definition */
 class TodoRouterClass {
@@ -27,7 +28,9 @@ class TodoRouterClass {
             if (!ok) { return sendFieldsError(res, 'Bad fields provided', miss, extra) }
             else{
                 // Use controller
-                
+                saveNewTodo(req)
+                .then( apiRes =>  sendApiSuccessResponse(res, 'Todo created', apiRes))
+                .catch( apiErr => sendApiErrorResponse(res, 'Error during todo creation', apiErr));
             } 
         })
     }
