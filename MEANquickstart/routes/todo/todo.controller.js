@@ -3,6 +3,17 @@ const logger = require('../../services/logger');
 const TodoModel = require('../../models/todo.model');
 
 /* Methode */
+const getTodoes = () => {
+
+    return new Promise( (resolve, reject) => {
+        // Récupérer tous les todoes
+        TodoModel.find( (error, todoes) => {
+            return error ? reject(error) : resolve(todoes)
+        });
+    });
+};
+
+
 const saveNewTodo = (req) => {
 
     return new Promise( (resolve, reject) => {
@@ -32,7 +43,50 @@ const saveNewTodo = (req) => {
 
 }
 
+const editTodo = (body) => {
+
+    return new Promise( (resolve, reject) => {
+        // Rechercher et mettre à jour la todo
+        TodoModel.findById( body._id, (error, todo) => {
+            if(error){ return reject(error) } // Problème de connexion
+            else{
+                // Mettre à jour la todo
+                todo.isDone = !todo.isDone;
+
+                // Enregistrer la modification
+                todo.save( (error, todo) =>{
+                    if(error){ return reject(error) }
+                    else{ return resolve(todo) }
+                })
+            }
+        })
+    })
+}
+
+const deleteTodo = (body) => {
+
+    return new Promise( (resolve, reject) => {
+        // Rechercher et mettre à jour la todo
+        TodoModel.findById( body._id, (error, todo) => {
+            if(error){ return reject(error) } // Problème de connexion
+            else{
+                // Mettre à jour la todo
+                todo.isDone = !todo.isDone;
+
+                // Enregistrer la modification
+                todo.remove( (error, todo) =>{
+                    if(error){ return reject(error) }
+                    else{ return resolve(todo) }
+                })
+            }
+        })
+    })
+}
+
 /* Export */
 module.exports = {
-    saveNewTodo
+    getTodoes,
+    saveNewTodo,
+    editTodo,
+    deleteTodo
 };
