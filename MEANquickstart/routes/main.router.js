@@ -1,45 +1,28 @@
-/*
-Imports et configuration
-*/
-    const Router = require('express');
-    const passport = require('passport');
-    
-    const AuthRouterClass = require('./auth/auth.routes');
-    const UserRouterClass = require('./user/user.routes');
-    const TodoRouterClass = require('./todo/todo.routes');
-    const PublicRouterClass = require('./public/public.routes');
-//
+/* Imports & configuration */
+const { Router } = require('express');
+const passport = require('passport');
 
-/*
-Configurer la stratégie passport
-*/
-    const { setAuthentication } = require('../services/authentication');
-    setAuthentication(passport);
-//
+const UserRouterClass = require('./user/user.routes');
+const AuthRouterClass = require('./auth/auth.routes');
+const FrontRouterClass = require('./front/front.routes');
 
-/*
-Création des routers
-*/
-    const apiRouter = Router({ mergeParams: true });
-    const frontRouter = Router();
-    
-    const authRouter = new AuthRouterClass( { passport } );
-    const userRouter = new UserRouterClass( { passport } );
-    const todoRouter = new TodoRouterClass( { passport } );
-    const publicRouter = new PublicRouterClass( { passport } );
-//
+/* Passport Strategy */
+const { setAuthentication } = require('../services/authentication');
+setAuthentication(passport);
 
-/*
-Définition des routes
-*/
-    apiRouter.use( `/api/auth`, authRouter.init() );
-    apiRouter.use( `/api/user`, userRouter.init() );
-    apiRouter.use( `/api/todo`, todoRouter.init() );
-    frontRouter.use( `/`, publicRouter.init() );
-//
+/* Define routers */
+const mainRouter = Router({ mergeParams: true });
+const apiRouter = Router({ mergeParams: true });
 
-/*
-Exporter le module des routes
-*/
-    module.exports = apiRouter;
-//
+const authRouter = new AuthRouterClass({ passport });
+const userRouter = new UserRouterClass({ passport });
+const frontRouter = new FrontRouterClass({ passport });
+
+/* Define routes */
+mainRouter.use('/', frontRouter.init());
+mainRouter.use('/api/', apiRouter);
+apiRouter.use('/auth', authRouter.init());
+apiRouter.use('/user', userRouter.init());
+
+/* Export */
+module.exports = { mainRouter };

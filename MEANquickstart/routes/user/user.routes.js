@@ -1,43 +1,31 @@
-/*
-Imports et configuration
-*/
-    const Router = require('express');
-    const userRouter = Router();
-//
+/* Imports */
+const { Router } = require('express');
+const userRouter = Router({ mergeParams: true });
+const { editData, getData } = require('./user.controller');
+const { sendBodyError, sendFieldsError, sendApiSuccessResponse, sendApiErrorResponse } = require('../../services/server.response');
+const { checkFields } = require('../../services/request.checker');
 
+/* Definition */
+class UserRouterClass {
+    constructor({ passport }) { this.passport = passport };
 
-/*
-Création d'une class pour gérer les routes
-*/
-    class UserRouterClass {
+    routes() {
+        // Route USER get data
+        userRouter.get('/me', this.passport.authenticate('jwt', { session: false }), (req, res) => {
 
-        // La fonction constructore permet d'importer des données dans la class
-        constructor(){};
+            console.log(req.user)
 
-        // Définition des routes
-        routes(){
+            getData(req)
+            .then( apiRes =>  sendApiSuccessResponse(res, 'User data saved', apiRes))
+            .catch( apiErr => sendApiErrorResponse(res, 'Error during processing', apiErr));
+        });
+    };
 
-            userRouter.get(`/`, (req, res) => {
-                res.json({ response: `HATEOAS for user/` });
-            });
-
-        }
-
-        // Initialiser le router
-        init(){
-            // Lancer la fonction routes()
-            this.routes();
-
-            // Renvoyer le router
-            return userRouter;
-        }
-
+    init() {
+        this.routes();
+        return userRouter;
     }
-//
+};
 
-
-/*
-Exporter la class du router
-*/
-    module.exports = UserRouterClass;
-//
+/* Export */
+module.exports = UserRouterClass;

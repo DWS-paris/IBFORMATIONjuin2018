@@ -1,93 +1,76 @@
-/*
-Imports
-*/
-    const UserModel = require('../../models/user.model');
-    const bcrypt = require('bcrypt');
-//
+/* Imports */
+const UserModel = require('../../models/user.model');
+const bcrypt = require('bcryptjs');
+const logger = require('../../services/logger');
 
-/*
-Ecrire une fonction pour inscrire un utilisateur
-*/
-    const registerUser = (body) => {
-        
-        // Intégrer la gestion des promesses
-        return new Promise( (resolve, reject) => {
-
-            // Vérifier l'adresse mail
-            UserModel.findOne( { email: body.email }, (error, user) => {
-                if(error){ // Erreur de connexion
+/* Methodes */
+    // Save Data
+    const saveData = (bodyParams) => {
+        return new Promise((resolve, reject) => {
+            UserModel.findOne({ email: bodyParams.email }, (error, user) => {          
+                if (error) { 
+                    logger.error(`Request error`, [`POST /user/register`, `UserModel.findOne`]);
                     return reject(error);
-
-                } else if(user){ // Email existant
-                    return reject(error);
-
-                } else {
-
-                    // Crypter le mot de passe
-                    bcrypt.hash( body.password, 10 )
-                    .then( hashedPassword => {
-                        // Inscrire l'utilisateur
+                } 
+                else if(user){ 
+                    logger.error(`Email already used`, [`POST /user/register`, `UserModel.findOne`]);
+                    return reject(`Email already used`);
+                }
+                else {
+                    bcrypt.hash(bodyParams.password, 10)
+                    .then( hash => { 
+                        const userPasswordHash = hash
                         UserModel.create({
-                            firstName: body.firstName,
-                            lastName: body.lastName,
-                            email: body.email,
-                            password: hashedPassword,
-                            cgu: true
-
-                        }, (error, data) => {
-                            if(error){
+                            firstName: bodyParams.firstName,
+                            lastName: bodyParams.lastName,
+                            email: bodyParams.email,
+                            password: userPasswordHash,
+                            cgu: true,
+                            
+                        }, (error, user) => {
+                            if(error) { 
+                                logger.error(`User not created`, [`POST /user/register`, `UserModel.create`]);
                                 return reject(error);
-
-                            } else{
-                                return resolve(data)
-                            }
-                        })
+                                }
+                            else { return resolve(user) }
+                        });
                     })
                     .catch( error => {
-                        return reject(error);
-                    })
-                }
-            })
+                        logger.error(`Error during hash`, [`POST /user/register`, `bcrypt.hash`]);
+                        reject(error);
+                    }) 
+                };
+            });
         });
     };
-//
 
-
-/*
-Ecrire une fonction pour connecter un utilisateur
-*/
-    const logUser = (body) => {
-        // Intégrer le système de promesse
-        return new Promise( (resolve, reject) => {
-            // Réchercher l'email de l'utilisateur
-            UserModel.findOne( { email: body.email }, (error, user) => {
-                if(error){ // Problème de connexion
+    // Log user: login, password
+    const logUser = (bodyParams) => {
+        return new Promise((resolve, reject) => {
+            UserModel.findOne({ email: bodyParams.email },  (error, user) => {
+                if(error) { 
+                    logger.error(`Request error`, [`POST /user/login`, `UserModel.findOne`]);
                     return reject(error);
-
-                } else if(!user){ // Email introuvable
-                    return reject(`Email unknow`);
-
-                } else{
-                    // Comparer les mots de passe ( client <=> bdd )
-                    const validPassword = bcrypt.compareSync( body.password, user.password );
-
-                    if(!validPassword){
-                        return reject(`Bad password`);
-
-                    } else{
-                        return resolve( { data: user, token: user.generateJwt() } )
-                    }
                 }
-            })
-        });
-    };
-//
+                else if (!user) { 
+                    logger.error(`Unknow user`, [`POST /user/login`, `UserModel.findOne`]);
+                    return reject(`Unknow user`)
+                }
+                else {
+                    const passwordIsValid = bcrypt.compareSync(bodyParams.password, user.password);
+                    if (!passwordIsValid) { 
+                        logger.error(`Password not valid`, [`POST /user/login`, `bcrypt.compareSync`]);
+                        return reject(`Password not valid`);
 
-/*
-Exporter le fonctions du contrôleur
-*/
-    module.exports = {
-        registerUser,
-        logUser
+                    } else{ return resolve({user: user, token: user.generateJwt() }) }
+                };
+            });
+        })
     }
 //
+
+/* Export */
+module.exports = {
+    saveData,
+    logUser,
+};

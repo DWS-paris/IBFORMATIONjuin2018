@@ -1,46 +1,30 @@
-/*
-Imports
-*/
-    const JwtStrategy = require('passport-jwt').Strategy;
-    const { ExtractJwt } = require('passport-jwt');
-    const UserModel = require('../models/user.model');
-// 
+/* Imports */
+const JwtStrategy = require('passport-jwt').Strategy;
+const { ExtractJwt } = require('passport-jwt');
+const UserModel = require('../models/user.model');
 
-/*
-Authentification via JWT
-*/
-    const authJwt = (passport) => {
-        // Options JWT
-        const options = {
-            jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-            secretOrKey: process.env.JWT_SECRET
-        };
+/* JWT authentication */
+const authJwt = (passport) => {
+    // #JWT Options for passport
+    const opts = {
+        jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+        secretOrKey: process.env.JWT_SECRET,
+    };
+    
+    // #JWT strategy
+    passport.use(new JwtStrategy(opts, (jwtPayload, done) => {
+        UserModel.findOne({ _id: jwtPayload._id }, (err, user) => {
+            if (err) { return done(err, false)}
+            if (user) { return done(null, user) }
+            else { return done(null, false) }
+        });
+    }));
+};
 
-        // Définition de la stratégie
-        passport.use( new JwtStrategy( options, (tokenDecryptedData, callback) => {
-            // Rechercher l'utilisateur
-            UserModel.findOne( { _id: tokenDecryptedData._id }, (error, user) => {
-                if( error ){
-                    return callback(error, false)
-
-                } else if(user){
-                    return callback(null, user)
-
-                } else{
-                    return callback(null, false)
-                }
-            })
-        }))
-    }
-//
-
-
-/*
-Exporter la stratégie
-*/
+/* Export */
     module.exports = {
+        // #JWT implementation
         setAuthentication: (passport) => {
-            authJwt(passport)
-        }
-    }
-//
+            authJwt(passport);
+        },
+    };

@@ -1,32 +1,30 @@
-/*
-Création d'une fonction pour vérifier les données envoyées dans le body
-*/
-    const checkFields = ( fields, body ) => {
-        // Definir deux tableaux
-        const miss = [];
-        const extra = [];
-
-        // Vérifier le champs manquant
-        fields.forEach( prop => {
-            if( !(prop in body) ) { miss.push(prop) }
-        });
-
-        // Vérifier les champs en trop
-        for( let prop in body ){
-            if( fields.indexOf(prop) === -1 ) { extra.push(prop) }
-        };
-
-        // Créer un objet lorsqu'il n'y à pas d'erreur
-        const ok = (extra.length === 0 && miss.length === 0);
-
-        // Renvoyer les données
-        return { ok, extra, miss };
+/**
+ * Check is fields are present in object properties, not less not more
+ * @param {*} required, array of required fields
+ * @param {*} object, object where needed to find the required fields
+ * @return {*} Object,  {more: [string], miss: [string], ok: Boolean }
+ */
+const checkFields = (required, object) => {
+    const miss = [];
+    const extra = [];
+  
+    // # Check missing fields
+    required.forEach((prop) => {
+      if (!(prop in object)) miss.push(prop);
+    });
+  
+    // #Check extra fields
+    for (const prop in object) {
+      if (required.indexOf(prop) === -1) extra.push(prop);
     }
-//
-
-
-/*
-Exporter le service
-*/
-    module.exports = checkFields;
-//
+  
+    // #Is there extra or missing fields
+    const ok = (extra.length === 0 && miss.length === 0);
+  
+    return { ok, extra, miss };
+  };
+  
+  module.exports = {
+    checkFields,
+  };
+  
