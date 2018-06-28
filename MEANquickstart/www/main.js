@@ -192,7 +192,7 @@ var AppRouter = _angular_router__WEBPACK_IMPORTED_MODULE_0__["RouterModule"].for
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<header>\n  <h1>MEAN quickstart</h1>\n  <nav>\n    <ul>\n      <li><a [routerLink]=\"'/'\" >Home page</a></li>\n    </ul>\n  </nav>\n</header>"
+module.exports = "<header>\n  <h1>MEAN quickstart</h1>\n  <nav>\n    <ul>\n      <li><a [routerLink]=\"'/'\">Home page</a></li>\n    </ul>\n  </nav>\n</header>"
 
 /***/ }),
 

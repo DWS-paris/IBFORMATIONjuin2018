@@ -1,15 +1,47 @@
-import { Component, OnInit } from '@angular/core';
+/*
+Imports
+*/
+  import { Component, OnInit } from '@angular/core';
+  import { UserModel } from "../../models/user.model";
+//
 
-@Component({
-  selector: 'app-home-page',
-  templateUrl: './home-page.component.html',
-  styles: []
-})
-export class HomePageComponent implements OnInit {
+/*
+Definitino
+*/
+  @Component({
+    selector: 'app-home-page',
+    templateUrl: './home-page.component.html',
+    styles: []
+  })
+//
 
-  constructor() { }
+/*
+Export
+*/
+  export class HomePageComponent implements OnInit {
 
-  ngOnInit() {
+    /*
+    Variables
+    */
+      public registerObject: UserModel = {
+        firstName: ``,
+        lastName: ``,
+        email: ``,
+        password: ``,
+        repeatePassword: ``,
+        cgu: false
+      }
+    //
+
+    constructor() { }
+
+    // Création d'une fonction pour inscrire un utilisateur
+    public registerNewUser = ( user: UserModel ) => {
+      console.log(`Validated form HOME`, user);
+    };
+
+    ngOnInit() {
+    }
+
   }
-
-}
+//

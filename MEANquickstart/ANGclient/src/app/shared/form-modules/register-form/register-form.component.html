@@ -1,0 +1,30 @@
+<!-- 
+Afficher la section quand l'objet formObject à récupérer la valeur du parent
+-->
+<section *ngIf="formObject">
+  <!-- 
+  Création d'un formuliare d'inscription
+  - Utilisation du ngModel pour le data binding des valeurs des inputs
+  -->
+  <form (submit)="formSubmission()">
+    <label for="firstName">Votre prénom <span *ngIf="formError.firstName">Obligatoire</span></label>
+    <input type="text" name="firstName" [(ngModel)]="formObject.firstName" (focus)="formError.firstName = false">
+
+    <label for="lastName">Votre nom  <span *ngIf="formError.lastName">Obligatoire</span></label>
+    <input type="text" name="lastName" [(ngModel)]="formObject.lastName" (focus)="formError.lastName = false">
+
+    <label for="email">Votre adresse mail  <span *ngIf="formError.email">Obligatoire</span></label>
+    <input type="email" name="email" [(ngModel)]="formObject.email" (focus)="formError.email = false">
+
+    <label for="password">Votre mot de passe  <span *ngIf="formError.password">Obligatoire</span></label>
+    <input type="password" name="password" [(ngModel)]="formObject.password" (focus)="formError.password = false">
+
+    <label for="repeate-password">Répéter votre mot de passe  <span *ngIf="formError.repeatePassword">Différent</span></label>
+    <input type="password" name="repeate-password" [(ngModel)]="formObject.repeatePassword"  (focus)="formError.repeatePassword = false">
+
+    <input type="checkbox" name="cgu" [(ngModel)]="formObject.cgu" (click)="checkConditions()"> 
+    Accepter les CGU  <span *ngIf="formError.cgu">Obligatoire</span>
+
+    <button type="submit">Inscription</button>
+  </form>
+</section>
