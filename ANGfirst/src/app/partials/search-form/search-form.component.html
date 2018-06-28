@@ -1,0 +1,13 @@
+<!-- 
+  Binding de l'événement submit du formulaire
+ -->
+<form (submit)="searchThis()">
+  <label for="search">{{ inputTitle }}</label>
+
+  <!-- 
+    Data-binding controller <=> view
+   -->
+  <input type="text" id="search" name="search" [(ngModel)]="inputValue">
+
+  <button type="submit">Rechercher</button>
+</form>

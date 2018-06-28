@@ -1,0 +1,19 @@
+<!-- 
+  Binding de la valeur d'une variable
+-->
+<h1>Welcome to {{ title }}!</h1>
+
+<!-- 
+  Binding d'événements
+-->
+<button (click)="sayHello('Julien')">Changer le titre</button>
+
+
+<!-- 
+ Intégrer un composant dasn un composant  
+-->
+<app-search-form
+  [inputTitle]="labelTitle"
+  (sendDataEvent)="getDataEvent($event)"
+
+></app-search-form>
