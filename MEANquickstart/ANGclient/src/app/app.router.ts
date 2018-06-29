@@ -13,6 +13,10 @@ Définir les routes dans un tableau de Routes
         {
             path: '',
             loadChildren: './pages/home-page/module#HomePageModule' // Lazy Load
+        },
+        {
+            path: 'todo',
+            loadChildren: './pages/todo-page/module#TodoPageModule' // Lazy Load
         }
     ];
 //

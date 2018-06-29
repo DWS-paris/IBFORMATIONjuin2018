@@ -1,11 +1,39 @@
-body{
-    padding: 4rem;
-}
+/* 
+Reset
+*/
+    body{
+        padding: 4rem;
+    }
 
-button{
-    display: block;
-}
+    button{
+        display: block;
+    }
 
-label span{
-    color: purple;
-}
+    label span{
+        color: purple;
+    }
+
+    /* Donner un display aux balises Angular utilisées dasn le CSS */
+    app-register-form{
+        display: block;
+    }
+/**/
+
+/* 
+Style loginForm/registerForm
+*/
+    h2 + form{
+        height: 0;
+        overflow: hidden;
+
+        transition: all .3s;
+    }
+
+    h2 + form.open {
+        height: 21rem;
+    }
+
+    app-register-form h2 + form.open {
+        height: 51rem;
+    }
+/**/

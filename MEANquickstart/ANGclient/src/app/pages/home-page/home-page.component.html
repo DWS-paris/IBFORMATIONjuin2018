@@ -1,4 +1,7 @@
-<app-login-form></app-login-form>
+<app-login-form
+    [formObject]="loginObject"
+    (sendFormData)="loginUser($event)"
+></app-login-form>
 
 <app-register-form
     [formObject]="registerObject"

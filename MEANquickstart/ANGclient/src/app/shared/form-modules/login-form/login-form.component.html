@@ -1,3 +1,20 @@
-<p>
-  login-form works!
-</p>
+<!-- 
+Afficher la section quand l'objet formObject à récupérer la valeur du parent
+-->
+<section *ngIf="formObject">
+  <h2 (click)="formIsOpen = !formIsOpen">Connexion</h2>
+
+  <!-- 
+  Création d'un formuliare d'inscription
+  - Utilisation du ngModel pour le data binding des valeurs des inputs
+  -->
+  <form (submit)="formSubmission()"  [ngClass]="{ 'open': formIsOpen }" >
+    <label for="email">Votre adresse mail  <span *ngIf="formError.email">Obligatoire</span></label>
+    <input type="email" name="email" [(ngModel)]="formObject.email" (focus)="formError.email = false">
+
+    <label for="password">Votre mot de passe  <span *ngIf="formError.password">Obligatoire</span></label>
+    <input type="password" name="password" [(ngModel)]="formObject.password" (focus)="formError.password = false">
+
+    <button type="submit">Connexion</button>
+  </form>
+</section>

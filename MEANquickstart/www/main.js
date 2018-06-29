@@ -10,7 +10,13 @@
 var map = {
 	"./pages/home-page/module": [
 		"./src/app/pages/home-page/module.ts",
+		"pages-home-page-module~pages-todo-page-module",
 		"pages-home-page-module"
+	],
+	"./pages/todo-page/module": [
+		"./src/app/pages/todo-page/module.ts",
+		"pages-home-page-module~pages-todo-page-module",
+		"pages-todo-page-module"
 	]
 };
 function webpackAsyncContext(req) {
@@ -22,7 +28,7 @@ function webpackAsyncContext(req) {
 			throw e;
 		});
 	}
-	return __webpack_require__.e(ids[1]).then(function() {
+	return Promise.all(ids.slice(1).map(__webpack_require__.e)).then(function() {
 		var module = __webpack_require__(ids[0]);
 		return module;
 	});
@@ -176,6 +182,10 @@ var mainRoutes = [
     {
         path: '',
         loadChildren: './pages/home-page/module#HomePageModule' // Lazy Load
+    },
+    {
+        path: 'todo',
+        loadChildren: './pages/todo-page/module#TodoPageModule' // Lazy Load
     }
 ];
 //
@@ -195,7 +205,7 @@ var AppRouter = _angular_router__WEBPACK_IMPORTED_MODULE_0__["RouterModule"].for
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<header>\n  <h1>MEAN quickstart</h1>\n  <nav>\n    <ul>\n      <li><a [routerLink]=\"'/'\">Home page</a></li>\n    </ul>\n  </nav>\n</header>"
+module.exports = "<header>\n  <h1>MEAN quickstart</h1>\n  <nav>\n    <ul>\n      <li><a [routerLink]=\"'/'\">Home page</a></li>\n      <li><a [routerLink]=\"'/todo'\">Todo page</a></li>\n    </ul>\n  </nav>\n</header>"
 
 /***/ }),
 

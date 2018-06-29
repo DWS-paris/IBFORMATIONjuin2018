@@ -27,6 +27,9 @@ Export
     @Input() formObject: UserModel;
     @Output() sendFormData = new EventEmitter();
 
+    // Création d'une variabble pour masquer/afficher le fomulaire
+    public formIsOpen: Boolean = false;
+
     // Création d'un objet pour les erreurs
     public formError;
 

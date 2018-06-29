@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "body{\n    padding: 4rem;\n}\n\nbutton{\n    display: block;\n}\n\nlabel span{\n    color: purple;\n}"
+module.exports = "/* \nReset\n*/\n    body{\n        padding: 4rem;\n    }\n    button{\n        display: block;\n    }\n    label span{\n        color: purple;\n    }\n    /* Donner un display aux balises Angular utilisées dasn le CSS */\n    app-register-form{\n        display: block;\n    }\n    /**/\n    /* \nStyle loginForm/registerForm\n*/\n    h2 + form{\n        height: 0;\n        overflow: hidden;\n\n        transition: all .3s;\n    }\n    h2 + form.open {\n        height: 21rem;\n    }\n    app-register-form h2 + form.open {\n        height: 51rem;\n    }\n    /**/\n"
 
 /***/ }),
 

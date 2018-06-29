@@ -17,37 +17,23 @@ Definition
 /*
 Export
 */
-  export class AuthService {
+  export class UserService {
 
     // Définir l'adresse de l'API
-    private apiUrl = '/api/auth'
+    private apiUrl = '/api/user'
 
     // Injecter le service HttpCLient dans la class
     constructor(
       private http: HttpClient
     ) { }
 
-    // Créer une fonction pour enregistrer un utilisateur
-    public userRegister( user: UserModel ): Promise<any> {
-
-      // Supprimer la propriété repeatePassword de l'ojet user
-      delete user.repeatePassword;
-
-      // Configurer la requête
-      let myHeader = new HttpHeaders().set( 'Content-Type', 'application/json')
-
-      // 3 paramêtre : url, data, header + claccback
-      return this.http.post(`${this.apiUrl}/register`, user, { headers: myHeader })
-      .toPromise().then(this.getData).catch(this.handelError)
-    }
-
     // Créer une fonction pour connecter un utilisateur
-    public userLogin( user: UserModel ): Promise<any> {
+    public getUserInfos( token: String ): Promise<any> {
       // Configurer la requête
-      let myHeader = new HttpHeaders().set( 'Content-Type', 'application/json')
+      let myHeader = new HttpHeaders().set( 'Authorization', `Bearer ${token}`)
 
-      // 3 paramêtre : url, data, header + claccback
-      return this.http.post(`${this.apiUrl}/login`, user, { headers: myHeader })
+      // Utiliser une requête HTTP GET
+      return this.http.get(`${this.apiUrl}/me`, { headers: myHeader })
       .toPromise().then(this.getData).catch(this.handelError)
     }
 

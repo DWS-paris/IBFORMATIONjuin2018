@@ -2,11 +2,12 @@
 Afficher la section quand l'objet formObject à récupérer la valeur du parent
 -->
 <section *ngIf="formObject">
+  <h2 (click)="formIsOpen = !formIsOpen">Inscription</h2>
   <!-- 
   Création d'un formuliare d'inscription
   - Utilisation du ngModel pour le data binding des valeurs des inputs
   -->
-  <form (submit)="formSubmission()">
+  <form (submit)="formSubmission()"  [ngClass]="{ 'open': formIsOpen }" >
     <label for="firstName">Votre prénom <span *ngIf="formError.firstName">Obligatoire</span></label>
     <input type="text" name="firstName" [(ngModel)]="formObject.firstName" (focus)="formError.firstName = false">
 
