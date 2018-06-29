@@ -7,9 +7,8 @@ Import
   import { HttpClientModule } from '@angular/common/http';
 
   // Internes
-  import { AppRouter } from "./app.router"; // AppRouter est un module
+  import { AppRouterModule } from "./app.router";
   import { AppComponent } from './app.component';
-  import { MyHeaderComponent } from './partials/my-header/my-header.component'; 
 //
 
 /*
@@ -18,15 +17,16 @@ Definition
   @NgModule({
     declarations: [
       AppComponent,
-      MyHeaderComponent
     ],
+
+    // Les modules sont à renseigner dans le tableau des imports
     imports: [
       BrowserModule,
       HttpClientModule,
-      AppRouter
+      AppRouterModule,
     ],
     providers: [],
-    bootstrap: [AppComponent]
+    bootstrap: [ AppComponent ]
   })
 //
 

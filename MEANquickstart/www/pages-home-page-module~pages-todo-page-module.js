@@ -5504,6 +5504,79 @@ var ReactiveFormsModule = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/services/user/user.service.ts":
+/*!***********************************************!*\
+  !*** ./src/app/services/user/user.service.ts ***!
+  \***********************************************/
+/*! exports provided: UserService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserService", function() { return UserService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+/*
+Imports
+*/
+
+
+//
+/*
+Definition
+*/
+var UserService = /** @class */ (function () {
+    // Injecter le service HttpCLient dans la class
+    function UserService(http) {
+        this.http = http;
+        // Définir l'adresse de l'API
+        this.apiUrl = '/api/user';
+    }
+    // Créer une fonction pour connecter un utilisateur
+    UserService.prototype.getUserInfos = function (token) {
+        // Configurer la requête
+        var myHeader = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]().set('Authorization', "Bearer " + token);
+        // Utiliser une requête HTTP GET
+        return this.http.get(this.apiUrl + "/me", { headers: myHeader })
+            .toPromise().then(this.getData).catch(this.handelError);
+    };
+    // Fonction pour traiter les success des requêtes
+    UserService.prototype.getData = function (response) {
+        // return res || {};
+        return Promise.resolve(response || {});
+    };
+    // Fonction pour traiter les erreurs des requête
+    UserService.prototype.handelError = function (response) {
+        return Promise.reject(response.error);
+    };
+    UserService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        })
+        //
+        /*
+        Export
+        */
+        ,
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
+    ], UserService);
+    return UserService;
+}());
+
+//
+
+
+/***/ }),
+
 /***/ "./src/app/shared/form-modules/form.module.ts":
 /*!****************************************************!*\
   !*** ./src/app/shared/form-modules/form.module.ts ***!
@@ -5519,6 +5592,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _register_form_register_form_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./register-form/register-form.component */ "./src/app/shared/form-modules/register-form/register-form.component.ts");
 /* harmony import */ var _login_form_login_form_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./login-form/login-form.component */ "./src/app/shared/form-modules/login-form/login-form.component.ts");
+/* harmony import */ var _todo_from_todo_from_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./todo-from/todo-from.component */ "./src/app/shared/form-modules/todo-from/todo-from.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -5528,6 +5602,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 /*
 Imports
 */
+
 
 
 
@@ -5546,9 +5621,9 @@ var AppFormModule = /** @class */ (function () {
     }
     AppFormModule = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
-            declarations: [_register_form_register_form_component__WEBPACK_IMPORTED_MODULE_3__["RegisterFormComponent"], _login_form_login_form_component__WEBPACK_IMPORTED_MODULE_4__["LoginFormComponent"]],
+            declarations: [_register_form_register_form_component__WEBPACK_IMPORTED_MODULE_3__["RegisterFormComponent"], _login_form_login_form_component__WEBPACK_IMPORTED_MODULE_4__["LoginFormComponent"], _todo_from_todo_from_component__WEBPACK_IMPORTED_MODULE_5__["TodoFromComponent"]],
             imports: [_angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"]],
-            exports: [_register_form_register_form_component__WEBPACK_IMPORTED_MODULE_3__["RegisterFormComponent"], _login_form_login_form_component__WEBPACK_IMPORTED_MODULE_4__["LoginFormComponent"]]
+            exports: [_register_form_register_form_component__WEBPACK_IMPORTED_MODULE_3__["RegisterFormComponent"], _login_form_login_form_component__WEBPACK_IMPORTED_MODULE_4__["LoginFormComponent"], _todo_from_todo_from_component__WEBPACK_IMPORTED_MODULE_5__["TodoFromComponent"]]
         })
         //
         /*
@@ -5797,6 +5872,319 @@ var RegisterFormComponent = /** @class */ (function () {
     return RegisterFormComponent;
 }());
 
+//
+
+
+/***/ }),
+
+/***/ "./src/app/shared/form-modules/todo-from/todo-from.component.html":
+/*!************************************************************************!*\
+  !*** ./src/app/shared/form-modules/todo-from/todo-from.component.html ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<!-- \nAfficher la section quand l'objet formObject à récupérer la valeur du parent\n-->\n<section *ngIf=\"formObject\">\n  <!-- \n  Création d'un formuliare d'inscription\n  - Utilisation du ngModel pour le data binding des valeurs des inputs\n  -->\n  <form (submit)=\"formSubmission()\">\n    <label for=\"content\">Ajouter une todo  <span *ngIf=\"formError.content\">Obligatoire</span></label>\n    <input type=\"text\" name=\"content\" [(ngModel)]=\"formObject.content\" (focus)=\"formError.content = false\">\n\n    <button type=\"submit\">Ajouter</button>\n  </form>\n</section>"
+
+/***/ }),
+
+/***/ "./src/app/shared/form-modules/todo-from/todo-from.component.ts":
+/*!**********************************************************************!*\
+  !*** ./src/app/shared/form-modules/todo-from/todo-from.component.ts ***!
+  \**********************************************************************/
+/*! exports provided: TodoFromComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TodoFromComponent", function() { return TodoFromComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+/*
+Imports
+*/
+
+//
+/*
+Definition
+*/
+var TodoFromComponent = /** @class */ (function () {
+    function TodoFromComponent() {
+        var _this = this;
+        this.sendFormData = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        // Création d'une fonction pour faire le reset de formError
+        this.resetFormError = function () {
+            _this.formError = {
+                score: 0,
+                content: false,
+            };
+        };
+        // Création du fonction pour la soumission du formulaire
+        this.formSubmission = function () {
+            // Reset des erreur
+            _this.resetFormError();
+            // Tester le content
+            if (_this.formObject.content.length === 0) {
+                _this.formError.score++;
+                _this.formError.email = true;
+            }
+            /*
+            Validation finale du formulaire
+            */
+            _this.formError.score === 0 ? _this.sendFormData.emit(_this.formObject) : null;
+            //
+        };
+    }
+    // Fonction lancée à la fin du chargement du composant
+    TodoFromComponent.prototype.ngOnInit = function () {
+        // Reset des erreur
+        this.resetFormError();
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Object)
+    ], TodoFromComponent.prototype, "formObject", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"])(),
+        __metadata("design:type", Object)
+    ], TodoFromComponent.prototype, "sendFormData", void 0);
+    TodoFromComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-todo-from',
+            template: __webpack_require__(/*! ./todo-from.component.html */ "./src/app/shared/form-modules/todo-from/todo-from.component.html"),
+            styles: []
+        })
+        //
+        /*
+        Export
+        */
+        ,
+        __metadata("design:paramtypes", [])
+    ], TodoFromComponent);
+    return TodoFromComponent;
+}());
+
+//
+
+
+/***/ }),
+
+/***/ "./src/app/shared/user-interface/my-header/my-header.component.html":
+/*!**************************************************************************!*\
+  !*** ./src/app/shared/user-interface/my-header/my-header.component.html ***!
+  \**************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<header>\n  <h1>MEAN quickstart</h1>\n  <nav>\n    <ul *ngIf=\"path === '/todo'\">\n      <li><a [routerLink]=\"'/todo'\">Todo page</a></li>\n      <li (click)=\"logoutUser()\">Logout</li>\n    </ul>\n  </nav>\n</header>"
+
+/***/ }),
+
+/***/ "./src/app/shared/user-interface/my-header/my-header.component.ts":
+/*!************************************************************************!*\
+  !*** ./src/app/shared/user-interface/my-header/my-header.component.ts ***!
+  \************************************************************************/
+/*! exports provided: MyHeaderComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MyHeaderComponent", function() { return MyHeaderComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+/*
+Imports
+*/
+
+
+//
+/*
+Definition
+*/
+var MyHeaderComponent = /** @class */ (function () {
+    function MyHeaderComponent(router) {
+        var _this = this;
+        this.router = router;
+        // Création d'une fonction pour déconnecter l'utilisateur
+        this.logoutUser = function () {
+            // Supprimer le token
+            localStorage.removeItem('MEANtoken');
+            // Rediriger l'utilisateur vers la home page
+            _this.router.navigateByUrl('/');
+        };
+    }
+    MyHeaderComponent.prototype.ngOnInit = function () { };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", String)
+    ], MyHeaderComponent.prototype, "path", void 0);
+    MyHeaderComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-my-header',
+            template: __webpack_require__(/*! ./my-header.component.html */ "./src/app/shared/user-interface/my-header/my-header.component.html"),
+            styles: ["\n      ul{ display: flex; list-style: none; }\n      li:not(:last-child){ margin-right: 1rem; }\n    "]
+        })
+        //
+        /*
+        Export
+        */
+        ,
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
+    ], MyHeaderComponent);
+    return MyHeaderComponent;
+}());
+
+//
+
+
+/***/ }),
+
+/***/ "./src/app/shared/user-interface/todo-item/todo-item.component.html":
+/*!**************************************************************************!*\
+  !*** ./src/app/shared/user-interface/todo-item/todo-item.component.html ***!
+  \**************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<article *ngIf=\"todo\">\n  <p>{{todo.content}}</p>\n  <ul>\n    <li *ngIf=\"!todo.isDone\">\n      <button (click)=\"sendTodoId('edit')\">Terminer</button>\n    </li>\n    <li *ngIf=\"todo.isDone\">\n      <button (click)=\"sendTodoId('edit')\">Activer</button>\n    </li>\n    <li>\n      <button (click)=\"sendTodoId('delete')\">Suppprimer</button>\n    </li>\n  </ul>\n</article>"
+
+/***/ }),
+
+/***/ "./src/app/shared/user-interface/todo-item/todo-item.component.ts":
+/*!************************************************************************!*\
+  !*** ./src/app/shared/user-interface/todo-item/todo-item.component.ts ***!
+  \************************************************************************/
+/*! exports provided: TodoItemComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TodoItemComponent", function() { return TodoItemComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+/*
+Imports
+*/
+
+
+//
+var TodoItemComponent = /** @class */ (function () {
+    function TodoItemComponent(router) {
+        var _this = this;
+        this.router = router;
+        this.todoInfos = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"];
+        this.sendTodoId = function (actionParam) {
+            _this.todoInfos.emit({ _id: _this.todo._id, action: actionParam });
+        };
+    }
+    TodoItemComponent.prototype.ngOnInit = function () {
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Object)
+    ], TodoItemComponent.prototype, "todo", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"])(),
+        __metadata("design:type", Object)
+    ], TodoItemComponent.prototype, "todoInfos", void 0);
+    TodoItemComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-todo-item',
+            template: __webpack_require__(/*! ./todo-item.component.html */ "./src/app/shared/user-interface/todo-item/todo-item.component.html"),
+            styles: ["\n    ul{ display: flex; list-style: none }\n    button{ padding: .7rem; font-size: 1rem; text-transform: uppercase; line-height: 1; margin-right: 1rem; height: auto; }\n    p{ margin-bottom: .5rem; }\n  "]
+        }),
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
+    ], TodoItemComponent);
+    return TodoItemComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/shared/user-interface/user-interface.module.ts":
+/*!****************************************************************!*\
+  !*** ./src/app/shared/user-interface/user-interface.module.ts ***!
+  \****************************************************************/
+/*! exports provided: UserInterfaceModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserInterfaceModule", function() { return UserInterfaceModule; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _my_header_my_header_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./my-header/my-header.component */ "./src/app/shared/user-interface/my-header/my-header.component.ts");
+/* harmony import */ var _todo_item_todo_item_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./todo-item/todo-item.component */ "./src/app/shared/user-interface/todo-item/todo-item.component.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+/*
+Imports
+*/
+// Angular components
+
+
+
+// APP components
+
+
+//
+/*
+Definition
+*/
+var UserInterfaceModule = /** @class */ (function () {
+    //
+    /*
+    Export
+    */
+    function UserInterfaceModule() {
+    }
+    UserInterfaceModule = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
+            declarations: [_my_header_my_header_component__WEBPACK_IMPORTED_MODULE_3__["MyHeaderComponent"], _todo_item_todo_item_component__WEBPACK_IMPORTED_MODULE_4__["TodoItemComponent"]],
+            imports: [_angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"]],
+            exports: [_my_header_my_header_component__WEBPACK_IMPORTED_MODULE_3__["MyHeaderComponent"], _todo_item_todo_item_component__WEBPACK_IMPORTED_MODULE_4__["TodoItemComponent"]]
+        })
+        //
+        /*
+        Export
+        */
+    ], UserInterfaceModule);
+    return UserInterfaceModule;
+}());
+
+;
 //
 
 

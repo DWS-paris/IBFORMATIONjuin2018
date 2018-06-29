@@ -1,7 +1,11 @@
 /*
 Imports
 */
+  // Angular compoenents
   import { Component, OnInit } from '@angular/core';
+  import { Router } from "@angular/router";
+
+  // APP components
   import { UserModel } from "../../models/user.model";
   import { AuthService } from "../../services/auth/auth.service";
   import { UserService } from "../../services/user/user.service";
@@ -44,10 +48,11 @@ Export
       private userToken: String;
     //
 
-    // Injection AuthService dans la class
+    // Injection des services et du router
     constructor(
       private authService: AuthService,
-      private userService: UserService
+      private userService: UserService,
+      private router: Router
     ) { }
 
     // Création d'une fonction pour inscrire un utilisateur
@@ -71,6 +76,8 @@ Export
         // Stocker le token utilisateur dans le navigateur
         localStorage.setItem('MEANtoken', apiSuccess.data.token);
 
+        // Rediriger l'utilisateur vers la page todo
+        this.router.navigateByUrl('/todo');
       })
       .catch( apiError => console.error(apiError) )
     };
@@ -80,7 +87,10 @@ Export
       if(this.userToken != undefined){
         // Contacter le service pour inscrire l'utilisateur
         this.userService.getUserInfos(this.userToken)
-        .then( apiSuccess => console.log(apiSuccess) )
+        .then( () => {
+          // Rediriger l'utilisateur vers la page todo
+          this.router.navigateByUrl('/todo');
+        })
         .catch( apiError => console.error(apiError) )
       }
     }

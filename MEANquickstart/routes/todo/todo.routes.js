@@ -25,7 +25,7 @@ class TodoRouterClass {
             // Error: no body present
             if (typeof req.body === 'undefined' || req.body === null) { sendBodyError(res, 'No body data provided') }
             // Check fields in the body
-            const { miss, extra, ok } = checkFields(['content', 'type'], req.body);
+            const { miss, extra, ok } = checkFields(['content'], req.body);
             //=> Error: bad fields
             if (!ok) { return sendFieldsError(res, 'Bad fields provided', miss, extra) }
             else{
@@ -53,19 +53,10 @@ class TodoRouterClass {
         })
 
         // Supprimer une todo
-        todoRouter.delete('/', this.passport.authenticate('jwt', { session: false }), (req, res) => {
-            // Error: no body present
-            if (typeof req.body === 'undefined' || req.body === null) { sendBodyError(res, 'No body data provided') }
-            // Check fields in the body
-            const { miss, extra, ok } = checkFields(['_id'], req.body);
-            //=> Error: bad fields
-            if (!ok) { return sendFieldsError(res, 'Bad fields provided', miss, extra) }
-            else{
-                // Use controller
-                deleteTodo(req.body)
-                .then( apiRes =>  sendApiSuccessResponse(res, 'Todo deleted', apiRes))
-                .catch( apiErr => sendApiErrorResponse(res, 'Error during todo deletation', apiErr));
-            } 
+        todoRouter.delete('/:id', this.passport.authenticate('jwt', { session: false }), (req, res) => {
+            deleteTodo(req.params.id)
+            .then( apiRes =>  sendApiSuccessResponse(res, 'Todo deleted', apiRes))
+            .catch( apiErr => sendApiErrorResponse(res, 'Error during todo deletation', apiErr));
         })
     }
 

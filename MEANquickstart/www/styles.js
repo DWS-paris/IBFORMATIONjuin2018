@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/* \nReset\n*/\n    body{\n        padding: 4rem;\n    }\n    button{\n        display: block;\n    }\n    label span{\n        color: purple;\n    }\n    /* Donner un display aux balises Angular utilisées dasn le CSS */\n    app-register-form{\n        display: block;\n    }\n    /**/\n    /* \nStyle loginForm/registerForm\n*/\n    h2 + form{\n        height: 0;\n        overflow: hidden;\n\n        transition: all .3s;\n    }\n    h2 + form.open {\n        height: 21rem;\n    }\n    app-register-form h2 + form.open {\n        height: 51rem;\n    }\n    /**/\n"
+module.exports = "/* \nReset\n*/\n    *{    \n        /* Supprimer tous les padding et tous le margine de TOUTES les balises */\n        padding: 0;\n        margin: 0;\n\n        /* Intégrer les padding et les boder dasn la taille des blocs */\n        box-sizing: border-box;\n    }\n    /* Ramener la valeur de 1 à 10px */\n    html{\n        font-size: 62.5%;\n    }\n    body{\n        font-size: 1.5rem;\n        padding: 4rem;\n    }\n    a{\n        color: inherit;\n        text-decoration: none;\n    }\n    img{\n        max-width: 100%;\n    }\n    /* Donner un display aux balises Angular utilisées dasn le CSS */\n    app-register-form{\n        display: block;\n    }\n    /**/\n    /* \nStyle global\n*/\n    button{\n        display: block;\n    }\n    label span{\n        color: purple;\n    }\n    /**/\n    /* \nStyle loginForm/registerForm\n*/\n    h2 + form{\n        height: 0;\n        overflow: hidden;\n\n        transition: all .3s;\n    }\n    h2 + form.open {\n        height: 21rem;\n    }\n    app-register-form h2 + form.open {\n        height: 51rem;\n    }\n    /**/\n"
 
 /***/ }),
 

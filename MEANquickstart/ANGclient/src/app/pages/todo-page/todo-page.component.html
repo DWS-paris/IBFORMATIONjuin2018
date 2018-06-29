@@ -1,3 +1,22 @@
-<p>
-  todo-page works!
-</p>
+<app-my-header
+  [path]="'/todo'"
+  
+></app-my-header>
+
+<app-todo-from
+  [formObject]="todoObject"
+  (sendFormData)="registerNewTodo($event)"
+
+></app-todo-from>
+
+<section *ngIf="todoCollection">
+  
+  <div *ngFor="let item of todoCollection">
+    <app-todo-item
+      [todo]="item"
+      (todoInfos)="modifyTodo($event)"
+
+    ></app-todo-item>
+  </div>
+
+</section>

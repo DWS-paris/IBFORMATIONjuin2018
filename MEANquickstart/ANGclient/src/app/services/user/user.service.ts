@@ -3,7 +3,6 @@ Imports
 */
   import { Injectable } from '@angular/core';
   import { HttpClient, HttpHeaders } from "@angular/common/http";
-  import { UserModel } from "../../models/user.model";
 //
 
 /*

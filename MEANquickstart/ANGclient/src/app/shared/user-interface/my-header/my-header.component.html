@@ -1,9 +1,9 @@
 <header>
   <h1>MEAN quickstart</h1>
   <nav>
-    <ul>
-      <li><a [routerLink]="'/'">Home page</a></li>
+    <ul *ngIf="path === '/todo'">
       <li><a [routerLink]="'/todo'">Todo page</a></li>
+      <li (click)="logoutUser()">Logout</li>
     </ul>
   </nav>
 </header>

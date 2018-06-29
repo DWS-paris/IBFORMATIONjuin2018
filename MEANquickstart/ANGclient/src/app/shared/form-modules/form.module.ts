@@ -6,15 +6,16 @@ Imports
     import { FormsModule } from '@angular/forms';
     import { RegisterFormComponent } from "./register-form/register-form.component";
     import { LoginFormComponent } from "./login-form/login-form.component";
+    import { TodoFromComponent } from "./todo-from/todo-from.component";
 //
 
 /*
 Definition
 */
     @NgModule({
-        declarations: [ RegisterFormComponent, LoginFormComponent ],
+        declarations: [ RegisterFormComponent, LoginFormComponent, TodoFromComponent ],
         imports: [ CommonModule, FormsModule ],
-        exports: [ RegisterFormComponent, LoginFormComponent ]
+        exports: [ RegisterFormComponent, LoginFormComponent, TodoFromComponent ]
     })
 //
 

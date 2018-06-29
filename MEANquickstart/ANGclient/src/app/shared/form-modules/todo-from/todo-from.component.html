@@ -1,0 +1,15 @@
+<!-- 
+Afficher la section quand l'objet formObject à récupérer la valeur du parent
+-->
+<section *ngIf="formObject">
+  <!-- 
+  Création d'un formuliare d'inscription
+  - Utilisation du ngModel pour le data binding des valeurs des inputs
+  -->
+  <form (submit)="formSubmission()">
+    <label for="content">Ajouter une todo  <span *ngIf="formError.content">Obligatoire</span></label>
+    <input type="text" name="content" [(ngModel)]="formObject.content" (focus)="formError.content = false">
+
+    <button type="submit">Ajouter</button>
+  </form>
+</section>

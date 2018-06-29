@@ -11,7 +11,6 @@ Definition
   @Component({
     selector: 'app-root',
     template: `
-      <app-my-header></app-my-header>
       <router-outlet></router-outlet>
     `
   })

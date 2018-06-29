@@ -13,6 +13,10 @@ var map = {
 		"pages-home-page-module~pages-todo-page-module",
 		"pages-home-page-module"
 	],
+	"./pages/single-todo-page/module": [
+		"./src/app/pages/single-todo-page/module.ts",
+		"pages-single-todo-page-module"
+	],
 	"./pages/todo-page/module": [
 		"./src/app/pages/todo-page/module.ts",
 		"pages-home-page-module~pages-todo-page-module",
@@ -76,7 +80,7 @@ var AppComponent = /** @class */ (function () {
     AppComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-root',
-            template: "\n      <app-my-header></app-my-header>\n      <router-outlet></router-outlet>\n    "
+            template: "\n      <router-outlet></router-outlet>\n    "
         })
         /*
         Export
@@ -105,7 +109,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var _app_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./app.router */ "./src/app/app.router.ts");
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
-/* harmony import */ var _partials_my_header_my_header_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./partials/my-header/my-header.component */ "./src/app/partials/my-header/my-header.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -120,7 +123,6 @@ Import
 
 
 // Internes
- // AppRouter est un module
 
 
 //
@@ -138,12 +140,12 @@ var AppModule = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
             declarations: [
                 _app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"],
-                _partials_my_header_my_header_component__WEBPACK_IMPORTED_MODULE_5__["MyHeaderComponent"]
             ],
+            // Les modules sont à renseigner dans le tableau des imports
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
                 _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClientModule"],
-                _app_router__WEBPACK_IMPORTED_MODULE_3__["AppRouter"]
+                _app_router__WEBPACK_IMPORTED_MODULE_3__["AppRouterModule"],
             ],
             providers: [],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"]]
@@ -165,12 +167,12 @@ var AppModule = /** @class */ (function () {
 /*!*******************************!*\
   !*** ./src/app/app.router.ts ***!
   \*******************************/
-/*! exports provided: AppRouter */
+/*! exports provided: AppRouterModule */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppRouter", function() { return AppRouter; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppRouterModule", function() { return AppRouterModule; });
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 
 //
@@ -186,66 +188,19 @@ var mainRoutes = [
     {
         path: 'todo',
         loadChildren: './pages/todo-page/module#TodoPageModule' // Lazy Load
+    },
+    // Définir une route dynamique (prenant un ou plusieurs paramètres)
+    {
+        path: 'single-todo/:id',
+        loadChildren: './pages/single-todo-page/module#SingleTodoPageModule' // Lazy Load
     }
 ];
 //
 /*
 Export
 */
-var AppRouter = _angular_router__WEBPACK_IMPORTED_MODULE_0__["RouterModule"].forRoot(mainRoutes);
+var AppRouterModule = _angular_router__WEBPACK_IMPORTED_MODULE_0__["RouterModule"].forRoot(mainRoutes);
 //
-
-
-/***/ }),
-
-/***/ "./src/app/partials/my-header/my-header.component.html":
-/*!*************************************************************!*\
-  !*** ./src/app/partials/my-header/my-header.component.html ***!
-  \*************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<header>\n  <h1>MEAN quickstart</h1>\n  <nav>\n    <ul>\n      <li><a [routerLink]=\"'/'\">Home page</a></li>\n      <li><a [routerLink]=\"'/todo'\">Todo page</a></li>\n    </ul>\n  </nav>\n</header>"
-
-/***/ }),
-
-/***/ "./src/app/partials/my-header/my-header.component.ts":
-/*!***********************************************************!*\
-  !*** ./src/app/partials/my-header/my-header.component.ts ***!
-  \***********************************************************/
-/*! exports provided: MyHeaderComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MyHeaderComponent", function() { return MyHeaderComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-var MyHeaderComponent = /** @class */ (function () {
-    function MyHeaderComponent() {
-    }
-    MyHeaderComponent.prototype.ngOnInit = function () {
-    };
-    MyHeaderComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-my-header',
-            template: __webpack_require__(/*! ./my-header.component.html */ "./src/app/partials/my-header/my-header.component.html"),
-            styles: []
-        }),
-        __metadata("design:paramtypes", [])
-    ], MyHeaderComponent);
-    return MyHeaderComponent;
-}());
-
 
 
 /***/ }),

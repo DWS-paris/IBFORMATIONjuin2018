@@ -17,6 +17,12 @@ Définir les routes dans un tableau de Routes
         {
             path: 'todo',
             loadChildren: './pages/todo-page/module#TodoPageModule' // Lazy Load
+        },
+
+        // Définir une route dynamique (prenant un ou plusieurs paramètres)
+        {
+            path: 'single-todo/:id',
+            loadChildren: './pages/single-todo-page/module#SingleTodoPageModule' // Lazy Load
         }
     ];
 //
@@ -24,5 +30,5 @@ Définir les routes dans un tableau de Routes
 /*
 Export
 */
-    export const AppRouter: ModuleWithProviders = RouterModule.forRoot(mainRoutes);
+    export const AppRouterModule: ModuleWithProviders = RouterModule.forRoot(mainRoutes);
 //

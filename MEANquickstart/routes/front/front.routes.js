@@ -8,7 +8,7 @@ class FrontRouterClass {
     constructor({ passport }) { this.passport = passport }
 
     routes(){
-        frontRouter.get( ['/', '/me', '/tap'], (req, res) => { res.render('index') });
+        frontRouter.get( ['/', '/todo', '/single-todo/*'], (req, res) => { res.render('index') });
     };
 
     init(){

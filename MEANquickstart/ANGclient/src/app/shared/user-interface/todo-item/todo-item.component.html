@@ -1,0 +1,14 @@
+<article *ngIf="todo">
+  <p>{{todo.content}}</p>
+  <ul>
+    <li *ngIf="!todo.isDone">
+      <button (click)="sendTodoId('edit')">Terminer</button>
+    </li>
+    <li *ngIf="todo.isDone">
+      <button (click)="sendTodoId('edit')">Activer</button>
+    </li>
+    <li>
+      <button (click)="sendTodoId('delete')">Suppprimer</button>
+    </li>
+  </ul>
+</article>

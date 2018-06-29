@@ -63,11 +63,11 @@ const editTodo = (body) => {
     })
 }
 
-const deleteTodo = (body) => {
+const deleteTodo = (id) => {
 
     return new Promise( (resolve, reject) => {
         // Rechercher et mettre à jour la todo
-        TodoModel.findById( body._id, (error, todo) => {
+        TodoModel.findById( id, (error, todo) => {
             if(error){ return reject(error) } // Problème de connexion
             else{
                 // Mettre à jour la todo
